@@ -11,7 +11,7 @@ async def root():
     }
 
 @app.get("/predict")
-async def predict() -> Dict[str, int]:
+async def count_pupa() -> Dict[str, int]:
     """
     Recognize the type of the pupa and
     returning the amount of the class.
