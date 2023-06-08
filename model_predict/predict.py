@@ -29,7 +29,7 @@ class PredictPupa:
             repo_or_dir="../fgv_app_production/yolov5",
             model="custom",
             source="local",
-            path="/home/ammar/INVOKE/fgv_API/fgv_app_production/runs/train/exp/weights/best_100.pt",
+            path=self.MODEL_WEIGHT_PATH,
         )
         result = model(self.img_path)
         return result
