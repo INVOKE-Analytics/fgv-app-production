@@ -18,7 +18,7 @@ async def count_pupa() -> Dict[str, int]:
     """
 
     # LOAD MODEL
-    # model = load_model(model_path="/")
+    output = predict_pupa()
 
     # EVAL
     # output = model.eval()
