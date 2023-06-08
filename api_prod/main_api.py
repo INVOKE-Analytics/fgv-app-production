@@ -4,6 +4,8 @@ from model_predict.predict import PredictPupa
 import sys, threading
 from PIL import Image
 import io
+import tempfile
+import os
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
@@ -19,9 +21,22 @@ async def root():
 @app.post("/predict")
 async def predict_metisa(pupa_img: UploadFile = File(...)):
     try:
+        temp_dir = tempfile.mkdtemp()
+        temp_dir_path = os.path.join(temp_dir, "tmp_out")
+        os.makedirs(temp_dir_path)
+        image_path = os.path.join(temp_dir_path, pupa_img.filename)
+
         content = pupa_img.file.read()
         with open(pupa_img.filename, "wb") as f:
             f.write(content)
+        with open(image_path, "wb") as image_file:
+            image_file.write(content)
+
+        # NOTE: Current use
+        # content = pupa_img.file.read()
+        # with open(pupa_img.filename, "wb") as f:
+        #     f.write(content)
+
         # read_img = pupa_img.file.read()
         # with open(pupa_img.filename, "rb") as f:
         #     img_bytes = f.read()
@@ -30,8 +45,8 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
     except Exception as readError:
         raise {"readError message": readError}
 
-    finally:
-        f.close()
+    # finally:
+    #     f.close()
 
     try:
         pred = PredictPupa(img_path=pupa_img.filename)
