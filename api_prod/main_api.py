@@ -6,6 +6,7 @@ from PIL import Image
 import io
 import tempfile
 import os
+import shutil
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
@@ -21,21 +22,10 @@ async def root():
 @app.post("/predict")
 async def predict_metisa(pupa_img: UploadFile = File(...)):
     try:
-        temp_dir = tempfile.mkdtemp()
-        temp_dir_path = os.path.join(temp_dir, "tmp_out")
-        os.makedirs(temp_dir_path)
-        image_path = os.path.join(temp_dir_path, pupa_img.filename)
-
+        # NOTE: Current use
         content = pupa_img.file.read()
         with open(pupa_img.filename, "wb") as f:
             f.write(content)
-        with open(image_path, "wb") as image_file:
-            image_file.write(content)
-
-        # NOTE: Current use
-        # content = pupa_img.file.read()
-        # with open(pupa_img.filename, "wb") as f:
-        #     f.write(content)
 
         # read_img = pupa_img.file.read()
         # with open(pupa_img.filename, "rb") as f:
@@ -58,6 +48,9 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Error: {errorRecog}",
         )
+    finally:
+        os.remove(f"../fgv_app_production/{pupa_img.filename}")
+
     return {
         "filename": pupa_img.filename,
         "content-type": pupa_img.content_type,
