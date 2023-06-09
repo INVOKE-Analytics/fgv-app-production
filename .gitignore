@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 # Ignore Pytorch file 
-*.pt
+# *.pt
 
 # Ignore the predict result
 # model_output/
