@@ -160,10 +160,10 @@ cython_debug/
 #.idea/
 
 # Ignore Pytorch file 
-# *.pt
+*.pt
 
 # Ignore the predict result
-# model_output/
+model_output/
 runs/
 *.png
 inference_out/
