@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from model_predict.predict import PredictPupa
+from fgv_app_production.model_predict.predict import PredictPupa
 from pathlib import Path
 
 st.title("FGV-Pupa Detector")
