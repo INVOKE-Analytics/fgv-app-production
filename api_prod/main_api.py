@@ -41,8 +41,6 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
     try:
         pred = PredictPupa(img_path=pupa_img.filename)
         output = pred.predict_pupa()
-        output.save()
-        output.crop()
     except Exception as errorRecog:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
