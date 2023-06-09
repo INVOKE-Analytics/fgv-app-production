@@ -1,5 +1,4 @@
 from pathlib import Path
-from yolov5.detect import run
 import torch
 
 
