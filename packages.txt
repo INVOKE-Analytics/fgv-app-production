@@ -1,2 +1,1 @@
-allow-releaseinfo-change update
 libgl1
