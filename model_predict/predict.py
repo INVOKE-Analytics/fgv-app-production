@@ -13,6 +13,8 @@ class PredictPupa:
         self.img_path = img_path
 
     def predict_pupa(self):
+        yolo_path = Path("./yolov5")
+        assert yolo_path.exists() == True, "Yolov5 is not exist"
         model = torch.hub.load(
             repo_or_dir="../yolov5",
             model="custom",
