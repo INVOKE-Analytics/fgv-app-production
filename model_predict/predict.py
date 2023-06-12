@@ -16,9 +16,9 @@ class PredictPupa:
         yolo_path = Path("./yolov5")
         assert yolo_path.exists() == True, "Yolov5 is not exist"
         model = torch.hub.load(
-            repo_or_dir="../yolov5",
+            repo_or_dir="ultralytics/yolov5",
             model="custom",
-            source="local",
+            source="github",
             path=self.MODEL_WEIGHT_PATH,
         )
         result = model(self.img_path)
