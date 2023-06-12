@@ -14,7 +14,7 @@ class PredictPupa:
 
     def predict_pupa(self):
         model = torch.hub.load(
-            repo_or_dir="../fgv_app_production/yolov5",
+            repo_or_dir="../yolov5",
             model="custom",
             source="local",
             path=self.MODEL_WEIGHT_PATH,
