@@ -7,6 +7,7 @@ import io
 import tempfile
 import os
 import shutil
+from mangum import Mangum
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
@@ -54,3 +55,6 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
         "content-type": pupa_img.content_type,
         "image-bbox": output.pandas().xyxy[0].to_json(orient="records"),
     }
+
+
+handler = Mangum(app)
