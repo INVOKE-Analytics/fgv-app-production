@@ -7,8 +7,7 @@ RUN apt-get update && \
     g++ \
     make \ 
     cmake \ 
-    unzip \
-    libcurl14-openssl-dev
+    unzip 
 
 ARG LAMBDA_TASK_ROOT 
 RUN mkdir -p ${LAMBDA_TASK_ROOT}
@@ -32,4 +31,5 @@ WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=build-image ${LAMBDA_TASK_ROOT} ${LAMBDA_TASK_ROOT}
 
 # using
-CMD ["app_prod.main_api.handler"]
+CMD ["uvicorn", "api_prod.main_api:app", "--host", "0.0.0.0", "--port", "80"]
+# CMD ["app_prod.main_api.handler"]
