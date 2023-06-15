@@ -57,4 +57,4 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
     }
 
 
-handler = Mangum(app)
+# handler = Mangum(app)
