@@ -1,13 +1,9 @@
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, status
-from typing import Annotated
 from model_predict.predict import PredictPupa
 import sys, threading
-from PIL import Image
-import io
-import tempfile
 import os
-import shutil
 from mangum import Mangum
+import uvicorn
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
@@ -57,4 +53,7 @@ async def predict_metisa(pupa_img: UploadFile = File(...)):
     }
 
 
-# handler = Mangum(app)
+if __name__ == "__main__":
+    uvicorn.run("main_api:app", port=8000, host="127.0.0.1")
+else:
+    handler = Mangum(app)
