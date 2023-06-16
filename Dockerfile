@@ -2,12 +2,12 @@ ARG LAMBDA_TASK_ROOT='/var/task'
 
 FROM python:3.9-bullseye as build-image
 
-# RUN apt-get update && \
-#     apt-get install -y \ 
-#     g++ \
-#     make \ 
-#     cmake \ 
-#     unzip 
+RUN apt-get update && \
+    apt-get install -y \ 
+    g++ \
+    make \ 
+    cmake \ 
+    unzip 
 
 # CREATE var/task and CD 
 ARG LAMBDA_TASK_ROOT
@@ -25,15 +25,18 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt \
     --target "${LAMBDA_TASK_ROOT}"
 
+RUN pip install awslambdaric \
+    --target "${LAMBDA_TASK_ROOT}"
+
 # SETUP ECR image
 FROM public.ecr.aws/lambda/python:3.8
-# SET
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY --from=build-image ${LAMBDA_TASK_ROOT} ${LAMBDA_TASK_ROOT}
-EXPOSE 8000
-# using
-# CMD ["uvicorn", "api_prod.main_api:app", "--reload", "--host", "0.0.0.0"]
 
+# if want to attach port to local to inspect
+EXPOSE 8000
+ENTRYPOINT ["uvicorn", "api_prod.main_api:app", "--reload", "--host", "0.0.0.0"]
+# ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
 CMD ["app_prod.main_api.handler"]
 
 # ARG LAMBDA_TASK_ROOT='/var/task'
