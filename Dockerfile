@@ -35,8 +35,8 @@ COPY --from=build-image ${LAMBDA_TASK_ROOT} ${LAMBDA_TASK_ROOT}
 
 # if want to attach port to local to inspect
 EXPOSE 8000
-ENTRYPOINT ["uvicorn", "api_prod.main_api:app", "--reload", "--host", "0.0.0.0"]
-# ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
+# CMD ["uvicorn", "api_prod.main_api:app", "--reload", "--host", "0.0.0.0"]
+ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
 CMD ["app_prod.main_api.handler"]
 
 # ARG LAMBDA_TASK_ROOT='/var/task'
