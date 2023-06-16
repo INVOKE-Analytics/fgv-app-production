@@ -8,7 +8,7 @@ class PredictPupa:
         self.CONF_THRESHOLD: float = 0.20
         self.project_path = Path("../fgv_app_production")
         self.model_output_path = self.project_path / "model_output"
-        self.MODEL_WEIGHT_PATH: str = self.project_path / "model_output/best_100.pt"
+        self.MODEL_WEIGHT_PATH: str = self.project_path / "model_output/best_model_9.pt"
         self.result_path = str(self.model_output_path)
         self.img_path = img_path
 
